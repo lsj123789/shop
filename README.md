@@ -1,29 +1,32 @@
-# shop
+#shop
 
-## Project setup
-```
-npm install
-```
+问题：
+1.每次刷新页面时，footerBar是随着一起刷新的，并不会停留在之前的选择上
+ 解决：用localStorage 存储当前选中的active，在系统created（）阶段，给当前选中的active赋值
+ 注意：localStorage存储的是字符型 而active是一个整型量，要用parseInt转化一下
+ 
+2.缓存路由组件：比如在分类中选择了第三个选项，离开分类页面后再回来，希望页面仍然是第三个分类
+ 解决：用Vue提供的抽象组件keep-alive对组件进行缓存，由于是一个抽象组件，所以Vue页面渲染完毕后不会被渲染成一个DOM元素，那么被包裹在keep-alive中的组件       状态将会保留。
+ 
+3.路由组件懒加载：有些组件并不是打开应用就需要加载的，可以在用到的时候再进行加载。
+  解决：将需要懒加载的组件变成一个函数，函数只有在使用的时候才会被调用。
+  
+4.错误页面处理：配置一个错误页面，当路由错误时都会显示错误页面，并且点击按钮返回首页（页面不够好看 有时间需要再改）
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+5.打包文件分析：dist中的X.map文件准确表明了哪里有错误，真正项目上线时是不需要拷到服务器上的。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+6.gzip：把前端打包成gzip支持的文件格式，服务器再进行配置。
 
-### Run your tests
-```
-npm run test
-```
+7.图片的懒加载：实际项目中，轮播图处的图片并不需要每次都加载出来。
+  解决：在vant组件库中，引入LazyLoad，把img的src改为v-lazy 每次只加载前几张图片。
+  
+8.用mock.js生成随即数据，拦截Ajax请求
 
-### Lints and fixes files
-```
-npm run lint
-```
+9.模拟网络不好的情况，可以设置一个定时器。
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+10.统一后台接口。
+
+11.用cors解决跨域问题。
+
+12.用brcypt给用户密码进行加盐加密。
+
